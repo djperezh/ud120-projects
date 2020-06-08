@@ -27,16 +27,40 @@ plt.ylabel("grade")
 plt.show()
 ################################################################################
 
-
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+import numpy as np
 
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
+from sklearn.metrics import accuracy_score
 
+# calculate how many naighbors are we going to use for the model (based on the "sqrt" heuristic)
+import math
+neighbors = int(math.sqrt(len(labels_train)))
+print("math.sqrt(len(labels_train))" + str(neighbors))
+if (neighbors % 2 == 0):
+    neighbors -= 1
+print("n_neighbors: " + str(neighbors))
 
+# define model
+clf = KNeighborsClassifier(n_neighbors=neighbors, metric="euclidean")
 
+# train
+clf.fit(features_train, labels_train)
 
+# predit
+pr = clf.predict(features_test)
 
+# evaluate the model
+cm = confusion_matrix(labels_test, pr)
+score = f1_score(labels_test, pr)
+print("score: " + str(score))
 
+# calc accuracy
+acc = accuracy_score(labels_test, pr)
+print("accuracy_score: " + str(acc))
 
 try:
     prettyPicture(clf, features_test, labels_test)
