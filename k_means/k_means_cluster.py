@@ -49,6 +49,24 @@ features_list = [poi, feature_1, feature_2, feature_3]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
+# Lesson 10: Feature Scaling
+print(finance_features)
+salary = []
+eso = []
+for item in finance_features:
+    salary.append( item[0] )
+    eso.append( item[1] )
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+rescaled_feature_1 = scaler.fit_transform(numpy.array(list(map(lambda el:[el], salary))))
+rescaled_feature_2 = scaler.fit_transform(numpy.array(list(map(lambda el:[el], eso))))
+print("init")
+print(rescaled_feature_1)
+print("***************")
+print(rescaled_feature_2)
+print("end")
+# end lesson 10
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
